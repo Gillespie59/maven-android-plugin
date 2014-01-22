@@ -796,7 +796,27 @@ public abstract class AbstractInstrumentationMojo extends AbstractAndroidMojo
                     NamedNodeMap testSuiteAttributes = testSuiteNode.getAttributes();
 
                     Attr nameAttr = junitReport.createAttribute( ATTR_TESTSUITE_NAME );
+
+
+                    StringBuilder identfier = new StringBuilder( "[" ).append( device.getSerialNumber() );
+                    if ( device.getAvdName() != null )
+                    {
+                        identfier.append( " " ).append( device.getAvdName() );
+                    }
+                    String manufacturer = DeviceHelper.getManufacturer( device );
+                    if ( StringUtils.isNotBlank( manufacturer ) )
+                    {
+                        identfier.append( " " ).append( manufacturer );
+                    }
+                    String model = DeviceHelper.getModel( device );
+                    if ( StringUtils.isNotBlank( model ) )
+                    {
+                        identfier.append( " " ).append( model );
+                    }
+                    identfier.append( "]" );
+
                     nameAttr.setValue( runName );
+
                     testSuiteAttributes.setNamedItem( nameAttr );
 
                     Attr hostnameAttr = junitReport.createAttribute( ATTR_TESTSUITE_HOSTNAME );

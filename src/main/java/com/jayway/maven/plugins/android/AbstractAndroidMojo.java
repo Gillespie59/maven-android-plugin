@@ -265,6 +265,17 @@ public abstract class AbstractAndroidMojo extends AbstractMojo
     protected String[] devices;
 
     /**
+     * External IP addresses. The connect goal of the android maven plugin  will execute an adb connect on
+     * each IP address before any goal : mvn clean android:connect install.  The Maven plugin will automatically
+     * add all these IP addresses into the the devices parameter.
+     * If you want to disconnect the IP addresses after the build, you can call the disconnect goal :
+     * mvn clean android:connect install android:disconnect
+     *
+     * @parameter expression="${android.ips}"
+     */
+    protected String[] ips;
+
+    /**
      * A selection of configurations to be included in the APK as a comma separated list. This will limit the
      * configurations for a certain type. For example, specifying <code>hdpi</code> will exclude all resource folders
      * with the <code>mdpi</code> or <code>ldpi</code> modifiers, but won't affect language or orientation modifiers.
@@ -873,6 +884,22 @@ public abstract class AbstractAndroidMojo extends AbstractMojo
         return false;
     }
 
+    private Set<String> getDevices()
+    {
+        Set<String> list = new HashSet<String>();
+
+        if ( StringUtils.isNotBlank( device ) )
+        {
+            list.add( device );
+        }
+
+        list.addAll( Arrays.asList( devices ) );
+
+        list.addAll( Arrays.asList( ips ) );
+
+        return list;
+    }
+
     /**
      * Undeploys an apk from a connected emulator or usb device. Also deletes the application's data and cache
      * directories on the device.
@@ -1289,20 +1316,6 @@ public abstract class AbstractAndroidMojo extends AbstractMojo
         }
 
         return overlayDirectories;
-    }
-
-    private Set<String> getDevices()
-    {
-        Set<String> list = new HashSet<String>();
-
-        if ( StringUtils.isNotBlank( device ) )
-        {
-            list.add( device );
-        }
-
-        list.addAll( Arrays.asList( devices ) );
-
-        return list;
     }
 
     private abstract class DoThread extends Thread
