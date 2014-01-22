@@ -73,10 +73,13 @@
         <url>https://travis-ci.org/jayway/maven-android-plugin</url>
     </ciManagement>
     <distributionManagement>
+        <repository>
+            <id>${release-id}</id>
+            <url>${kazan-public-releases-repo-url}</url>
+        </repository>
         <snapshotRepository>
-            <id>oss.sonatype.org-jayway-snapshots</id>
-            <name>Jayway OpenSource SNAPSHOTs on Sonatype.org</name>
-            <url>http://oss.sonatype.org/content/repositories/jayway-snapshots/</url>
+            <id>${snapshot-id}</id>
+            <url>${kazan-public-snapshots-repo-url}</url>
         </snapshotRepository>
     </distributionManagement>
     <licenses>
