@@ -815,7 +815,7 @@ public abstract class AbstractInstrumentationMojo extends AbstractAndroidMojo
                     }
                     identfier.append( "]" );
 
-                    nameAttr.setValue( runName );
+                    nameAttr.setValue( identfier.toString() );
 
                     testSuiteAttributes.setNamedItem( nameAttr );
 
