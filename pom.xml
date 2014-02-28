@@ -450,7 +450,7 @@
                     <argLine>-Xmx512m -XX:MaxPermSize=128m</argLine>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <extensions>true</extensions>
@@ -460,7 +460,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <stagingProfileId>26a4c760b261ca</stagingProfileId>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
     <reporting>
